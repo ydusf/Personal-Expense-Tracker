@@ -1,0 +1,135 @@
+{% extends "base/base.html" %}
+
+{% block title %}Dashboard{% endblock title %}
+
+{% load static %}
+
+{% block content %}
+{% if total_expenses_amount != 0 %}
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Expense Pie Chart -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" style="text-align: center;">Expense Breakdown</h5>
+                        <canvas id="expensePieChart" style="max-height: 500px;"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Expenses -->
+            <div class="col-md-6">
+                <div id="total-expenses-card" class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Expenses</h5>
+                        <h2 class="text-primary">{{ currency_symbol }}{{ total_expenses_amount }}</h2>
+                    </div>
+                </div>
+
+                <!-- Budget Summary -->
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Remaining Budget</h5>
+                        {% if remaining_budget > 0 %}
+                            <h3 class="text-success">{{ currency_symbol }}{{ remaining_budget }}</h3>
+                        {% else %}
+                            <h3 class="text-danger">{{ currency_symbol }}{{ remaining_budget }}</h3>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Time Filters -->
+                <div class="filter-btn-container mt-3">
+                    <a href="{% url 'home' 1 %}" class="btn btn-info filter-button">Daily</a>
+                    <a href="{% url 'home' 7 %}" class="btn btn-primary filter-button">Weekly</a>
+                    <a href="{% url 'home' 30 %}" class="btn btn-danger filter-button">Monthly</a>
+                    <a href="{% url 'home' 365 %}" class="btn btn-warning filter-button">Yearly</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="empty-state-container">
+        <header>
+            <h1 class="empty-state-header">TRACKWIZ</h1>
+        </header>
+        <main>
+            <div class="empty-state">
+                <img class="empty-state-img" src={% static "images/empty-state-image.jpg" %} alt="No Expenses Recorded">
+                <span class="empty-state-text">
+                    <h2>No Expenses Recorded</h2>
+                    <p>It's time to start tracking your expenses!</p>
+                </span>
+                <a href="{% url 'profile_edit' %}" class="btn btn-primary empty-state-btn">Create Profile</a>
+                <a href="{% url 'expense_create' %}" class="btn btn-danger empty-state-btn">Create Expense</a>
+                <a href="{% url 'budgets' %}" class="btn btn-warning empty-state-btn">Create Budgets</a>
+            </div>
+        </main>
+    </div>
+{% endif %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+<script>
+    const expenseData = JSON.parse('{{ expense_data|escapejs|safe }}');
+
+    const colorPalette = [
+        "rgb(255, 99, 132)",
+        "rgb(54, 162, 235)",
+        "rgb(255, 206, 86)",
+        "rgb(75, 192, 192)",
+        "rgb(153, 102, 255)",
+        "rgb(255, 159, 64)",
+        "rgb(138, 43, 226)",
+        "rgb(60, 179, 113)",
+        "rgb(255, 215, 0)",
+        "rgb(255, 99, 71)",
+    ];
+
+    const colorPaletteHover = [
+        "rgb(255, 99, 180, 0.7)",
+        "rgb(54, 162, 255, 0.7)",
+        "rgb(255, 206, 140, 0.7)",
+        "rgb(75, 192, 255, 0.7)",
+        "rgb(153, 102, 255, 0.7)",
+        "rgb(255, 159, 130, 0.7)",
+        "rgb(138, 43, 255, 0.7)",
+        "rgb(60, 179, 170, 0.7)",
+        "rgb(255, 215, 70, 0.7)",
+        "rgb(255, 99, 140, 0.7)",
+    ];
+
+    const ctxPie = document.getElementById("expensePieChart").getContext("2d");
+
+    const myChart = new Chart(ctxPie, {
+        type: 'pie',
+        data: {
+            labels: expenseData.labels,
+            datasets: [{
+                data: expenseData.values,
+                backgroundColor: colorPalette.slice(0, expenseData.labels.length),
+                hoverBackgroundColor: colorPaletteHover.slice(0, expenseData.labels.length),
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: {
+                animateScale: true,
+                animateRotate: true
+            },
+        },
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        AddMt3Class('total-expenses-card');
+
+        window.addEventListener('resize', function() {
+            AddMt3Class('total-expenses-card');
+        });
+    });
+</script>
+{% endblock content %}

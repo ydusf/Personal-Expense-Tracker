@@ -1,0 +1,23 @@
+{% extends "base/base.html" %}
+
+{% block title %}Profile{% endblock title %}
+
+{% block content %}
+
+<div class="container mt-5">
+    {% include "base/profile_template.html" %}
+    <div class="mt-2">
+        <a href="{% url 'profile_edit' %}" class="btn btn-success">Edit Profile</a>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        AddMt3Class('about-me-card');
+
+        window.addEventListener('resize', function() {
+            AddMt3Class('about-me-card');
+        });
+    });
+</script>
+{% endblock content %}

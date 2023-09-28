@@ -1,0 +1,35 @@
+{% extends "base/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Profile{% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            {% include "base/profile_template.html" %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <form class="mt-3" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% comment %} {{ user_form|crispy }} {% endcomment %}
+                {{ profile_form|crispy }}
+                <button type="submit" class="btn btn-success">Update Profile</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        AddMt3Class('about-me-card');
+
+        window.addEventListener('resize', function() {
+            AddMt3Class('about-me-card');
+        });
+    });
+</script>
+{% endblock content %}

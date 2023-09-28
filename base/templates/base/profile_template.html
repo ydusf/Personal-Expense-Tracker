@@ -1,0 +1,35 @@
+<div class="row">
+    <!-- Identity -->
+    <div class="col-md-4">
+        <div class="card profile-box">
+            <img src={{ user.profile.image.url }} alt="Profile Image" class="card-img-top img-fluid profile-pic">
+            <div class="card-body">
+                <h5 class="card-title identity-title">
+                    {% if user.profile.forename %}{{ user.profile.forename }}{% endif %}
+                    {% if user.profile.surname %}{{ user.profile.surname }}{% endif %}
+                    {% if user.profile.forename or user.profile.surname %}•{% endif %} 
+                    {{ user.username }}
+                </h5>
+                <p class="card-text identity-text">{% if user.profile.job_title %}{{ user.profile.job_title }}{% endif %}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <!-- About Me -->
+        <div id="about-me-card" class="card">
+            <div class="card-body">
+                <h5 class="card-title">About Me</h5>
+                <p class="card-text">{% if user.profile.biography %}{{ user.profile.biography }}{% else %}This user hasn't provided a bio yet.{% endif %}</p>
+            </div>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="card mt-3">
+            <div class="card-body">
+                <h5 class="card-title">Contact Information</h5>
+                <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+            </div>
+        </div>
+    </div>
+</div>

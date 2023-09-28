@@ -1,0 +1,25 @@
+{% extends "base/base.html" %}
+
+{% block title %}Register{% endblock title %}
+
+{% load crispy_forms_tags %}
+
+{% load socialaccount %}
+
+{% block content %}
+<div class="brand-content">
+    <p>TrackWiz<p>
+</div>
+<div class="auth-box">
+    <a href="{% provider_login_url 'google' method='oauth2' %}?next=/" class="google-button">Sign up with Google</a>
+    <br><br><hr>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{form|crispy}}
+        <button type="submit" class="btn btn-success register-btn">Register</button>
+        <hr>
+        <a href="/login" class="btn btn-primary login-btn">Log in</a>
+    </form>
+</div>
+{% endblock content %}

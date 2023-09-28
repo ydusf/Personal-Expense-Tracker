@@ -1,0 +1,35 @@
+{% extends "base/base.html" %}
+
+{% block title %}Create Expense{% endblock title %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function () {
+        hideField('id_recurrence_frequency');
+        hideField('id_recurrence_interval');
+
+        $('#id_is_recurring').change(function () {
+            if ($(this).is(':checked')) {
+                showField('id_recurrence_frequency');
+                showField('id_recurrence_interval');
+            } else {
+                hideField('id_recurrence_frequency');
+                hideField('id_recurrence_interval');
+            }
+        });
+    });
+</script>
+
+
+{% endblock content %}

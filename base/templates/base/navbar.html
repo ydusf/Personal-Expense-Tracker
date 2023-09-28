@@ -1,0 +1,52 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg custom-navbar">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/home">
+            <img class="logo" src="{% static 'images/favicon.png' %}" alt="Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                {% if user.is_authenticated %}
+                    <a class="nav-link" href="/expense_list">Expenses</a>
+                    <a class="nav-link" href="/expense_create">Create Expense</a>
+                    <a class="nav-link" href="/category_list">Categories</a>
+                    <a class="nav-link" href="/analytics">Analytics</a>
+                    <a class="nav-link" href="/budgets">Budgets</a>
+                    <a class="nav-link" href={% url "logout" %}>Logout</a>
+                    <a id="profile-text" class="nav-link profile-link d-block d-lg-none" href="/profile">Profile</a>
+                {% else %}
+                    <a class="nav-link" href="/login">Login</a>
+                {% endif %}
+            </div>
+        </div>
+        {% if user.is_authenticated %}
+            <a id="profile-pic" class="nav-link profile-link d-none d-lg-block" href="/profile">
+                <img class="profile-img" src="{{ user.profile.image.url }}" alt="Profile">
+            </a>
+        {% endif %}
+    </div>
+</nav>
+
+<script>
+    function applyCustomNavStyles() {
+        const navbarCollapse = document.querySelector('.navbar-collapse');
+        const customNavbar = document.querySelector('.custom-navbar');
+
+        if (window.getComputedStyle(navbarCollapse).getPropertyValue('display') === 'none') {
+            customNavbar.classList.add('collapsed');
+        } else {
+            customNavbar.classList.remove('collapsed');
+        }
+    }
+
+    window.addEventListener('resize', applyCustomNavStyles);
+
+    applyCustomNavStyles();
+</script>
+
+
+
