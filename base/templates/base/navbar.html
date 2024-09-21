@@ -25,7 +25,7 @@
         </div>
         {% if user.is_authenticated %}
             <a id="profile-pic" class="nav-link profile-link d-none d-lg-block" href="/profile">
-                <img class="profile-img" src="{{ user.profile.image.url }}" alt="Profile">
+                {% comment %} <img class="profile-img" src="{{ user.profile.image.url }}" alt="Profile"> {% endcomment %}
             </a>
         {% endif %}
     </div>

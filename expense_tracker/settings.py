@@ -28,8 +28,8 @@ SECRET_KEY=os.environ.get('DJANGO_SECRET_KEY')
 SITE_ID=2
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG=(os.environ.get('DEBUG_VALUE') == "True")
-ALLOWED_HOSTS = ['financial-expense-tracker-a712ea4faf64.herokuapp.com']
+DEBUG="True"
+ALLOWED_HOSTS = ['personal-expense-tracker-212619213c5a.herokuapp.com']
 
 # Application definition
 
@@ -156,12 +156,12 @@ CATEGORIES = [
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
+    # {
+    #     "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+    # },
+    # {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
+    # {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
+    # {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
 
 AUTH_USER_MODEL = 'base.CustomUser'
