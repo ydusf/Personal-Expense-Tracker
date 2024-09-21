@@ -1,20 +1,20 @@
+{% load static %}
+
 <div class="row">
   <!-- Identity -->
   <div class="col-md-4">
     <div class="card profile-box">
       <img
-        src="{{"
-        user.profile.image.url
-        }}
+        src="{% static 'images/default_profile.png' %}"
         alt="Profile Image"
         class="card-img-top img-fluid profile-pic"
       />
       <div class="card-body">
         <h5 class="card-title identity-title">
           {% if user.profile.forename %}{{ user.profile.forename }}{% endif %}
-          {% if user.profile.surname %}{{ user.profile.surname }}{% endif %} {%
-          if user.profile.forename or user.profile.surname %}{% endif %} {{
-          user.username }}
+          {% if user.profile.surname %}{{ user.profile.surname }}{% endif %} 
+          {% if user.profile.forename or user.profile.surname %}{% endif %} 
+          {{ user.username }}
         </h5>
         <p class="card-text identity-text">
           {% if user.profile.job_title %}{{ user.profile.job_title }}{% endif %}
@@ -29,8 +29,8 @@
       <div class="card-body">
         <h5 class="card-title">About Me</h5>
         <p class="card-text">
-          {% if user.profile.biography %}{{ user.profile.biography }}{% else
-          %}This user hasn't provided a bio yet.{% endif %}
+          {% if user.profile.biography %}{{ user.profile.biography }}
+          {% else %}This user hasn't provided a bio yet.{% endif %}
         </p>
       </div>
     </div>
