@@ -30,8 +30,7 @@ SECRET_KEY=config('DJANGO_SECRET_KEY')
 SITE_ID=2
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG=(os.environ.get('DEBUG_VALUE') == "True")
-DEBUG=True
+DEBUG=(os.environ.get('DEBUG_VALUE') == "True")
 ALLOWED_HOSTS = ['personal-expense-tracker-212619213c5a.herokuapp.com']
 
 # Application definition
